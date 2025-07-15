@@ -16,9 +16,14 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        repositories {
+            flatDir {
+                dirs("libs")
+            }
+        }
     }
 }
 
 rootProject.name = "NativeCalculatorApp"
 include(":app")
- 
+include(":NativeCalculatorLibrary")

@@ -2,6 +2,8 @@ package com.example.nativecalculatorapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.nativecalculatorlibrary.CalculatorBridge;
+import com.example.nativecalculatorlibrary.Operation;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,10 +15,8 @@ import com.example.nativecalculatorapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     static {
-        System.loadLibrary("nativecalculatorapp");
+        System.loadLibrary("native-lib");
     }
-    public native double calculate(double a,double b,int operationCode);
-    Operation selected = Operation.ADD;
     private ActivityMainBinding binding;
 
     @Override
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 double a = Double.parseDouble(inputA.getText().toString());
                 double b = Double.parseDouble(inputB.getText().toString());
                 Operation selectedOp = (Operation) operationSpinner.getSelectedItem();
-                double result = calculate(a,b,selectedOp.ordinal());
+                double result = CalculatorBridge.calculate(a,b,selectedOp.ordinal());
                 resultText.setText("Sonuç: " + result);
             }catch(Exception e) {
                 resultText.setText("Hata: " + e.getMessage());
